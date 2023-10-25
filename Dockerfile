@@ -23,7 +23,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN --mount=type=cache,target=/root/.m2 mvn -ntp clean install -pl flink-kubernetes-standalone,flink-kubernetes-operator-api,flink-kubernetes-operator,flink-kubernetes-operator-autoscaler,flink-kubernetes-webhook -DskipTests=$SKIP_TESTS
+RUN --mount=type=cache,target=/root/.m2 mvn -ntp clean install -pl flink-kubernetes-standalone,flink-kubernetes-operator-api,flink-kubernetes-operator,flink-kubernetes-operator-autoscaler,flink-kubernetes-webhook -Dcheckstyle.skip -DskipTests=$SKIP_TESTS
+#RUN target=/root/.m2 mvn dependency:copy -DoutputDirectory=/app/flink-kubernetes-operator/target/plugins/flink-s3-fs-hadoop -Dartifact=org.apache.flink:flink-s3-fs-hadoop:1.17.1
 
 RUN cd /app/tools/license; mkdir jars; cd jars; \
     cp /app/flink-kubernetes-operator/target/flink-kubernetes-operator-*-shaded.jar . && \

@@ -252,7 +252,11 @@ public class ApplicationReconciler
     @Override
     public boolean reconcileOtherChanges(FlinkResourceContext<FlinkDeployment> ctx)
             throws Exception {
+
         if (super.reconcileOtherChanges(ctx)) {
+            if (customProbe.probe(ctx)) {
+                LOG.info("YA M7AMAAAAA");
+            }
             return true;
         }
 

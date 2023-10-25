@@ -103,6 +103,9 @@ public class SessionReconciler
     @Override
     public boolean reconcileOtherChanges(FlinkResourceContext<FlinkDeployment> ctx)
             throws Exception {
+        if (customProbe.probe(ctx)) {
+            LOG.info("YA M7AMAAAAA");
+        }
         if (shouldRecoverDeployment(ctx.getObserveConfig(), ctx.getResource())) {
             recoverSession(ctx);
             return true;

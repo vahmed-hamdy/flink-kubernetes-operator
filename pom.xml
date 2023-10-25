@@ -61,6 +61,7 @@ under the License.
         <module>examples/flink-beam-example</module>
         <module>examples/kubernetes-client-examples</module>
         <module>examples/autoscaling</module>
+        <module>flink-kubernetes-custom-probes</module>
     </modules>
 
     <properties>

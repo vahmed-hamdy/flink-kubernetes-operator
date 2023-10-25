@@ -78,6 +78,7 @@ public abstract class AbstractFlinkResourceReconciler<
     protected final StatusRecorder<CR, STATUS> statusRecorder;
     protected final KubernetesClient kubernetesClient;
     protected final JobAutoScaler resourceScaler;
+    protected final CustomProbe customProbe;
 
     public static final String MSG_SUSPENDED = "Suspending existing deployment.";
     public static final String MSG_SPEC_CHANGED =
@@ -96,6 +97,7 @@ public abstract class AbstractFlinkResourceReconciler<
         this.eventRecorder = eventRecorder;
         this.statusRecorder = statusRecorder;
         this.resourceScaler = autoscalerFactory.create(kubernetesClient, eventRecorder);
+        this.customProbe = new DummyProbeImpl(kubernetesClient, eventRecorder);
     }
 
     @Override
