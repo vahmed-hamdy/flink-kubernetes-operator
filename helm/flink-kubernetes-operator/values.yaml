@@ -23,11 +23,14 @@
 # watchNamespaces: ["flink"]
 
 image:
-  repository: flink-kubernetes-operator
+#  repository: flink-kubernetes-operator
+#  pullPolicy: IfNotPresent
+#  tag: latest
+  repository: fo
   pullPolicy: IfNotPresent
-  tag: latest
+  tag: with-s3
   # If image digest is set then it takes precedence and the image tag will be ignored
-  # digest: ""
+#  digest: ""
 
 imagePullSecrets: []
 

@@ -73,6 +73,9 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/docker-entrypoint.sh", "operator"]
           ports:
+            - containerPort: 5005
+              name: debug
+              protocol: TCP
           {{- if .Values.metrics.port }}
             - containerPort: {{ .Values.metrics.port }}
               name: metrics
@@ -108,8 +111,16 @@ spec:
               value: /opt/flink/plugins
             - name: LOG_CONFIG
               value: -Dlog4j.configurationFile=/opt/flink/conf/log4j-operator.properties
+            - name: JAVA_TOOL_OPTIONS
+              value: '-Xdebug -agentlib:jdwp=transport=dt_socket,address=0.0.0.0:5005,server=y,suspend=n'
             - name: JVM_ARGS
               value: {{ .Values.jvmArgs.operator }}
+            - name: AWS_ACCESS_KEY_ID
+              value: ''
+            - name: AWS_SECRET_ACCESS_KEY
+              value: ''
+            - name: AWS_DEFAULT_REGION
+              value: 'us-east-1'
             {{- with .Values.operatorPod.env }}
             {{- toYaml . | nindent 12 }}
             {{- end }}

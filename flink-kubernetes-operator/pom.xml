@@ -274,6 +274,12 @@ under the License.
                     <artifactItems>
                         <artifactItem>
                             <groupId>org.apache.flink</groupId>
+                            <artifactId>flink-s3-fs-hadoop</artifactId>
+                            <version>${flink.version}</version>
+                            <outputDirectory>${plugins.tmp.dir}/flink-s3-fs-hadoop</outputDirectory>
+                        </artifactItem>
+                        <artifactItem>
+                            <groupId>org.apache.flink</groupId>
                             <artifactId>flink-metrics-datadog</artifactId>
                             <version>${flink.version}</version>
                             <outputDirectory>${plugins.tmp.dir}/flink-metrics-datadog</outputDirectory>

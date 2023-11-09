@@ -1,0 +1,11 @@
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkSessionJob
+metadata:
+  name: some-name
+#  applicationId: some-name
+spec:
+  deploymentName: basic-deployment
+  job:
+    jarURI: s3://sysdesigncdkstack-artifacts3bucket2de51773-1v6tsswoseu1m/flink117-1.0-SNAPSHOT.jar
+    parallelism: 1
+    upgradeMode: stateless
