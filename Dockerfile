@@ -16,7 +16,7 @@
 # limitations under the License.
 ################################################################################
 # Build
-FROM maven:3.8.4-eclipse-temurin-11 AS build
+FROM --platform=linux/amd64 maven:3.8.4-eclipse-temurin-11 AS build
 ARG SKIP_TESTS=true
 
 WORKDIR /app
@@ -33,7 +33,7 @@ RUN cd /app/tools/license; mkdir jars; cd jars; \
     cd ../ && ./collect_license_files.sh ./jars ./licenses-output
 
 # stage
-FROM eclipse-temurin:11-jre-jammy
+FROM --platform=linux/amd64 eclipse-temurin:11-jre-jammy
 ENV FLINK_HOME=/opt/flink
 ENV FLINK_PLUGINS_DIR=$FLINK_HOME/plugins
 ENV OPERATOR_VERSION=1.7-SNAPSHOT
@@ -56,11 +56,15 @@ COPY --from=build /app/tools/license/licenses-output/NOTICE .
 COPY --from=build /app/tools/license/licenses-output/licenses ./licenses
 COPY docker-entrypoint.sh /
 
+
 RUN chown -R flink:flink $FLINK_HOME && \
     chown flink:flink $OPERATOR_JAR && \
     chown flink:flink $WEBHOOK_JAR && \
     chown flink:flink $KUBERNETES_STANDALONE_JAR && \
     chown flink:flink /docker-entrypoint.sh
+
+COPY --chown=flink:flink flink-s3-fs-hadoop-1.17.2.jar $FLINK_PLUGINS_DIR/flink-s3-fs-hadoop/flink-s3-fs-hadoop.jar
+
 
 ARG SKIP_OS_UPDATE=true
 

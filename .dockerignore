@@ -3,6 +3,7 @@
 
 # Log file
 **/*.log
+!flink-s3-fs-hadoop-1.17.2.jar
 
 # Package Files
 **/*.jar
@@ -12,6 +13,7 @@
 **/*.zip
 **/*.tar.gz
 **/*.rar
+!flink-s3-fs-hadoop-1.17.2.jar
 
 ### Maven template
 **/target/

@@ -158,7 +158,15 @@ spec:
           {{- if .Values.postStart }}
           lifecycle:
             postStart:
-              {{- toYaml .Values.postStart | nindent 14 }}
+              exec:
+                command:
+                  - /bin/sh
+                  - -c
+                  - 'mkdir $FLINK_PLUGINS_DIR/flink-s3-fs-hadoop && curl -H "Accept: application/zip"
+                          https://repo1.maven.org/maven2/org/apache/flink/flink-s3-fs-hadoop/1.17.2/flink-s3-fs-hadoop-1.17.2.jar
+                          --output $FLINK_PLUGINS_DIR/flink-s3-fs-hadoop/flink-s3-fs-hadoop-1.17.2.jar'
+{{/*            postStart:*/}}
+{{/*              {{- toYaml .Values.postStart | nindent 14 }}*/}}
           {{- end }}
         {{- if eq (include "flink-operator.webhook-enabled" .) "true" }}
         - name: flink-webhook
